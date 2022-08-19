@@ -1,9 +1,17 @@
-import com.atlassian.jira.issue.fields.CustomField
 import com.atlassian.jira.component.ComponentAccessor
+import com.atlassian.jira.issue.CustomFieldManager
+import com.atlassian.jira.issue.fields.CustomField
 
-def customField = CompponentAccessor.getCustomFieldManager().getCustomFieldObject("customfield_10402","customfield_10403")
+Long CUSTOM_FIELD_ID_1 = 10402
+Long CUSTOM_FIELD_ID_2 = 10403
 
-if (issue.get("customfield_10402")== null || issue.get("customfield_10403")== null)
-   return null;
-else 
-return issue.get("customfield_10402") + issue.get("customfield_10403")
+CustomFieldManager customFieldManager = ComponentAccessor.getCustomFieldManager()
+
+CustomField customField1 = customFieldManager.getCustomFieldObject(CUSTOM_FIELD_ID_1)
+CustomField customField2 = customFieldManager.getCustomFieldObject(CUSTOM_FIELD_ID_2)
+
+Float number1 = issue.getCustomFieldValue(customField1) as Float
+Float number2 = issue.getCustomFieldValue(customField2) as Float
+
+//return (number1 && number2) ? number2 / number1 * 100 : 0
+return number2 + number1
