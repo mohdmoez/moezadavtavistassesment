@@ -1,0 +1,9 @@
+import com.atlassian.jira.issue.fields.CustomField
+import com.atlassian.jira.component.ComponentAccessor
+
+def customField = CompponentAccessor.getCustomFieldManager().getCustomFieldObject("customfield_10402","customfield_10403")
+
+if (issue.get("customfield_10402")== null || issue.get("customfield_10403")== null)
+   return null;
+else 
+return issue.get("customfield_10402") + issue.get("customfield_10403")
