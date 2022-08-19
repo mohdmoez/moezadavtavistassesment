@@ -1,0 +1,4 @@
+import com.atlassian.jira.component.ComponentAccessor
+
+def commentManager = ComponentAccessor.getCommentManager()
+def lastComment = commentManager.getLastComment(issue)
