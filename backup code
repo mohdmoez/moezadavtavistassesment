@@ -1,0 +1,18 @@
+import com.atlassian.jira.entity.Select
+import com.atlassian.jira.issue.ActionConstants
+import com.atlassian.jira.issue.Issue
+import org.ofbiz.core.entity.GenericValue
+import com.atlassian.jira.issue.comments.Comment
+
+@Override
+public Comment getLastComment(Issue issue)
+{
+  final GenericValue commentGV = Select.from(COMMENT_ENTITY)
+      .whereEqual("issue", issue.getId())
+      .andEqual("type", ActionConstants.TYPE_COMMENT)
+      .orderBy("created DESC")
+      .limit(1)
+      .runWith(delegator)
+      .singleValue();
+  return commentGV == null ? null : convertToComment(commentGV);
+}
